@@ -1,17 +1,25 @@
 h1 {
-    color:rgb(106, 154, 220);
+    color:rgb(73, 196, 196);
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     size: 10px
 }
+
 body {
-    background-color: rgb(24, 5, 5);
+    background-color: rgb(17, 5, 5);
 }
+
 p {
-    color:rgb(134, 112, 201)
+    color:rgb(58, 159, 159);
 }
+
 button {
     background-color: rgb(27, 46, 81);
     color: rgb(58, 159, 159);
     border-style: double;
-    border-color: rgb(42, 165, 151);
+    border-color: rgb(58, 159, 159);
+}
+
+canvas {
+  border: 2px solid rgb(58, 159, 159);
+  display: block; /* Prevents vertical scroll issues */
 }
