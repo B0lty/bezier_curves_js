@@ -33,7 +33,10 @@ window.addEventListener('mousemove', (event) => {
 
     range.oninput = function() { output.innerHTML = this.value; }
 
-    bezier_resolution = output.innerHTML;
+    if (output.innerHTML !== bezier_resolution) {
+        bezier_resolution = output.innerHTML;
+        update_canvas()
+    }
 });
 
 window.addEventListener('mousedown', (event) => {
@@ -51,9 +54,7 @@ window.addEventListener('mousedown', (event) => {
 
 window.addEventListener('mouseup', () => {
     selected_control_pt = -1;
-    update_canvas();
 });
-
 
 function draw_circle(x, y, col, rad) {
     var canvas = document.getElementById("myCanvas");
