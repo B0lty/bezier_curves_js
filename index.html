@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bezier Curves</title>
+        <link rel="stylesheet" href="styles.css" />
+        <script src="script.js" defer></script>
+    </head>
+    <body onload="update_canvas()">
+        <h1>
+            Bezier Curves Editor
+        </h1>
+        <p>Drag the points around to edit the bezier curve. </p>
+        <p>Add or remove point with the buttons.</p>
+
+        <button onclick="add_point()">Add Point</button>
+
+        <button onclick="remove_point()">Remove Point</button>
+        
+        <canvas id="myCanvas" width="500px" height="500px"></canvas>
+    </body>
+</html>
