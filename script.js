@@ -11,6 +11,8 @@ var bezier_resolution = 500;
 
 
 const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
 const availWidth = screen.availWidth;
 
 canvas.width = availWidth * 0.985
@@ -57,8 +59,6 @@ window.addEventListener('mouseup', () => {
 });
 
 function draw_circle(x, y, col, rad) {
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
     ctx.strokeStyle = col;
     ctx.beginPath();
     ctx.arc(x, y, rad, 0, 2 * Math.PI);
@@ -80,13 +80,11 @@ function remove_point() {
 }
 
 function update_canvas() {
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Drawing circles around the control points
-    for (let i = 0; i < control_points.length; i++) {
-        draw_circle(control_points[i].x, control_points[i].y, "red", control_points[i].r);
+    // Drawing connecting lines between control points
+    for (let i = 0; i < control_points.length-1; i++) {
+        draw_line(control_points[i], control_points[i+1], "gray", 2000);
     }
 
     // Drawing the bezier curve
@@ -98,6 +96,14 @@ function update_canvas() {
         draw_pixel(vec_pt.x, vec_pt.y, "red")
     }
 
+    // Drawing circles around the control points
+    for (let i = 0; i < control_points.length; i++) {
+        let col = "blue";
+        if (i == 0 || i == control_points.length-1) {
+            col = "green";
+        }
+        draw_circle(control_points[i].x, control_points[i].y, col, control_points[i].r);
+    }
 }
 
 function is_pt_in_circle(pt, circle_pt, rad) {
@@ -112,7 +118,6 @@ function is_pt_in_control_pt(pt, control_pt) {
 }
 
 function get_canvas_mouse_pos(event) {
-    const canvas = document.getElementById("myCanvas");
     const rect = canvas.getBoundingClientRect();
 
     return {
@@ -143,10 +148,16 @@ function factorial(n) {
     return n * factorial(n - 1);
 }
 
-function draw_pixel(x, y, color) {
-    const canvas = document.getElementById('myCanvas');
-    const ctx = canvas.getContext('2d');
-
-    ctx.fillStyle = color;
+function draw_pixel(x, y, col) {
+    ctx.fillStyle = col;
     ctx.fillRect(Math.floor(x), Math.floor(y), 1, 1);
+}
+
+function draw_line(pt1, pt2, col, res) {
+    for (let i = 0; i < res; i++) {
+        let t = i / res;
+        let pt = get_pt_of_nth_degree_bezier(t, [pt1, pt2]);
+
+        draw_pixel(pt.x, pt.y, col);
+    }
 }
